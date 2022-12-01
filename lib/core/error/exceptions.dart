@@ -6,3 +6,11 @@ class ServerException implements Exception{
     required this.errorMessageModel,
 });
 }
+class LocalDataBaseException implements Exception{
+
+  final String message;
+
+  LocalDataBaseException({required this.message});
+
+
+}
