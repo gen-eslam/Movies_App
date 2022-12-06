@@ -21,7 +21,7 @@ class Movie extends Equatable {
 
   @override
   List<Object> get props =>
-      [id, title, backdropPath, genreIds, overView, voteAverage, releaseDate];
+      [id, title,backdropPath ,genreIds, overView, voteAverage, releaseDate];
 
   // @override
   // bool operator ==(Object other) =>
