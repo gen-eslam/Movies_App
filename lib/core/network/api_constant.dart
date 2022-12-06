@@ -10,9 +10,10 @@ class ApiConstant {
   static const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
 
   static String imageUrl(String path) => '$baseImageUrl$path';
-  static String baseMovieDetails = 'https://api.themoviedb.org/3/';
 
   static String movieDetailsPath(int movieId) =>
-      '${baseurl}movie/$movieId?api_key=$apiKey';
+      '$baseurl/movie/$movieId?api_key=$apiKey';
 
+  static String recommendationPath(int movieId) =>
+      '$baseurl/movie/$movieId/recommendations?api_key=$apiKey';
 }

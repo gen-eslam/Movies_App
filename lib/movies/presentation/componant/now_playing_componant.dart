@@ -1,4 +1,3 @@
-
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/movies/presentation/controller/movies_bloc.dart';
 import 'package:movieapp/movies/presentation/controller/movies_state.dart';
+import 'package:movieapp/movies/presentation/screens/movie_detail_screen.dart';
 
 import '../../../core/network/api_constant.dart';
 import '../../../core/utils/enum.dart';
@@ -16,10 +16,12 @@ class NowPlayingComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesBloc, MoviesState>(
-       buildWhen:(previous,current)=>  current.nowPlayingState.name == 'loaded' || current.nowPlayingState.name =='error'  ,
-       // buildWhen: (previous,current)=> previous.nowPlayingState != current.nowPlayingState,
+      buildWhen: (previous, current) =>
+          current.nowPlayingState.name == 'loaded' ||
+          current.nowPlayingState.name == 'error',
+      // buildWhen: (previous,current)=> previous.nowPlayingState != current.nowPlayingState,
       builder: (context, state) {
-         //print("+++++++++++++++++++++++++++\n"+state.nowPlayingState.name);
+        //print("+++++++++++++++++++++++++++\n"+state.nowPlayingState.name);
         switch (state.nowPlayingState) {
           case RequestState.loading:
             return const SizedBox(
@@ -39,11 +41,15 @@ class NowPlayingComponent extends StatelessWidget {
                 ),
                 items: state.nowPlayingMovies.map(
                   (item) {
-                     // print(item.backdropPath);
+                    // print(item.backdropPath);
                     return GestureDetector(
                       key: const Key('openMovieMinimalDetail'),
                       onTap: () {
-                        /// TODO : NAVIGATE TO MOVIE DETAILS
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    MovieDetailScreen(id: item.id)));
                       },
                       // NowPlaying
                       child: Stack(
@@ -68,8 +74,7 @@ class NowPlayingComponent extends StatelessWidget {
                             blendMode: BlendMode.dstIn,
                             child: CachedNetworkImage(
                               height: 560.0,
-                              imageUrl:
-                                  ApiConstant.imageUrl(item.backdropPath),
+                              imageUrl: ApiConstant.imageUrl(item.backdropPath),
                               fit: BoxFit.cover,
                             ),
                           ),

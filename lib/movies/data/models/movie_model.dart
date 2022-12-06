@@ -15,7 +15,6 @@ class MovieModel extends Movie {
           id: json['id'],
           title: json['title'],
           /// delete to string to show error
-          ///
           backdropPath: json['backdrop_path'].toString(),
           genreIds: List<int>.from(json["genre_ids"].map((e) => e)),
           overView: json["overview"],
